@@ -2,15 +2,23 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2023"],
+    "baseUrl": ".src",
+    "paths": {
+      "@/*": ["./src/*"],
+      "public/*": ["./public/*"]
+    },
+    "useDefineForClassFields": true,
     "module": "ESNext",
     "skipLibCheck": true,
+    "composite": true,
+    "emitDeclarationOnly": true,
+
 
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
 
     /* Linting */
     "strict": true,
@@ -18,5 +26,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "src/**/*", "next-env.d.ts", "types", "**/*.ts", "**/*.tsx", "next.config.js"],
+  "exclude": ["node_modules", "dist", "**/*.test.tsx", "vite-env.d.ts", "vite.config.ts"]
 }

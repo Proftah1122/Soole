@@ -14,16 +14,18 @@ export const useForm = <T extends Record<string, any>>({
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | { target: { name: string; value: string } }
   ) => {
-    const { name, value } = e.target;
-    setValues(prev => ({ ...prev, [name]: value }));
-    setTouched(prev => ({ ...prev, [name]: true }));
-    
+    const { name, value } = 'target' in e ? e.target : e;
+  
+    setValues((prev) => ({ ...prev, [name]: value }));
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  
     const validationErrors = validate({ ...values, [name]: value });
     setErrors(validationErrors);
   };
-
+  
+  
   const isValid = Object.keys(errors).length === 0 && 
     Object.keys(values).every(key => values[key] !== '');
 
