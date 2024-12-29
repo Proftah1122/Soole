@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const NavLinks = () => {
   return (
     <div className="flex items-center gap-8">

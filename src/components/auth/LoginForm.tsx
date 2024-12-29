@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { FormInput } from './FormInput';
 import { AuthButton } from '../buttons/AuthButton';
 import { useLogin } from './hooks/useLogin';
 
 export const LoginForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const router = useRouter();
   const { login, isLoading, error } = useLogin();
   const [formData, setFormData] = useState({
     identifier: '',
@@ -17,7 +19,7 @@ export const LoginForm = () => {
     e.preventDefault();
     const success = await login(formData);
     if (success) {
-      navigate('/dashboard');
+      router.push('/dashboard');
     }
   };
 
@@ -63,7 +65,7 @@ export const LoginForm = () => {
 
         <button
           type="button"
-          onClick={() => navigate('/forgot-password')}
+          onClick={() => router.push('/forgot-password')}
           className="text-sm text-purple-500 hover:text-purple-400 transition-colors"
         >
           Forgot Password?
@@ -83,7 +85,7 @@ export const LoginForm = () => {
         Don't have an account?{' '}
         <button
           type="button"
-          onClick={() => navigate('/signup')}
+          onClick={() => router.push('/signup')}
           className="text-purple-500 hover:text-purple-400 transition-colors"
         >
           Sign Up

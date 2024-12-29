@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { LeafletMap } from '../components/tracking/LeafletMap';
 import { ETADisplay } from '../components/tracking/ETADisplay';

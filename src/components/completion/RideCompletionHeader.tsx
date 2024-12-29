@@ -1,4 +1,3 @@
-import React from 'react';
 import { PartyPopper } from 'lucide-react';
 
 export const RideCompletionHeader = () => {

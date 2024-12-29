@@ -1,4 +1,3 @@
-import React from 'react';
 import { MapPin, Clock, Star, DollarSign } from 'lucide-react';
 import { AuthButton } from '../../buttons/AuthButton';
 import { formatCurrency } from '../../../utils/formatters';

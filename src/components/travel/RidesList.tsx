@@ -1,5 +1,5 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { Car, Clock, Star } from 'lucide-react';
 import { AuthButton } from '../buttons/AuthButton';
 import { formatCurrency } from '../../utils/formatters';
@@ -70,7 +70,8 @@ const Ride = ({
 };
 
 export const RidesList = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
   const { travelType } = useTravelType();
   const rides = getMockRides(travelType);
 

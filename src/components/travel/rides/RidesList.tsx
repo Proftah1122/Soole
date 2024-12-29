@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { Clock, Star, DollarSign } from 'lucide-react';
 import { RideCard } from './RideCard';
 
@@ -12,7 +13,7 @@ interface SortingOption {
 const sortingOptions: SortingOption[] = [
   { id: 'price', label: 'Price', icon: <DollarSign size={16} /> },
   { id: 'rating', label: 'Rating', icon: <Star size={16} /> },
-  { id: 'time', label: 'Time', icon: <Clock size={16} /> }
+  { id: 'time', label: 'Time', icon: <Clock size={16} /> },
 ];
 
 // Mock data for intrastate rides
@@ -20,7 +21,8 @@ const mockIntraStateRides = [
   {
     id: '1',
     driverName: 'Oluwaseun Afolabi',
-    driverPhoto: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&q=80',
+    driverPhoto:
+      'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&q=80',
     vehicleInfo: 'Toyota Camry • ABC 123 XY',
     rating: 4.8,
     baseFare: 5000,
@@ -30,13 +32,14 @@ const mockIntraStateRides = [
     route: {
       pickup: 'Ikeja',
       dropoff: 'Victoria Island',
-      milestones: []
-    }
-  }
+      milestones: [],
+    },
+  },
 ];
 
 export const RidesList = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
   const [sortBy, setSortBy] = useState<'price' | 'rating' | 'time'>('price');
   const [rides] = useState(mockIntraStateRides);
   const [isSelecting, setIsSelecting] = useState(false);
@@ -45,32 +48,39 @@ export const RidesList = () => {
     if (isSelecting) return;
     setIsSelecting(true);
 
-    const selectedRide = rides.find(ride => ride.id === rideId);
+    const selectedRide = rides.find((ride) => ride.id === rideId);
     if (selectedRide) {
-      sessionStorage.setItem('selectedRide', JSON.stringify({
-        driver: {
-          name: selectedRide.driverName,
-          photo: selectedRide.driverPhoto,
-          vehicle: {
-            model: selectedRide.vehicleInfo.split('•')[0].trim(),
-            color: 'Silver',
-            plateNumber: selectedRide.vehicleInfo.split('•')[1].trim()
+      sessionStorage.setItem(
+        'selectedRide',
+        JSON.stringify({
+          driver: {
+            name: selectedRide.driverName,
+            photo: selectedRide.driverPhoto,
+            vehicle: {
+              model: selectedRide.vehicleInfo.split('•')[0].trim(),
+              color: 'Silver',
+              plateNumber: selectedRide.vehicleInfo.split('•')[1].trim(),
+            },
+            rating: selectedRide.rating,
           },
-          rating: selectedRide.rating
-        },
-        ride: {
-          pickup: sessionStorage.getItem('pickup') || selectedRide.route.pickup,
-          dropoff: sessionStorage.getItem('dropoff') || selectedRide.route.dropoff,
-          duration: `${selectedRide.duration} mins`,
-          eta: new Date(Date.now() + selectedRide.duration * 60000).toLocaleTimeString()
-        },
-        fare: {
-          baseFare: selectedRide.baseFare,
-          serviceCharge: selectedRide.serviceCharge,
-          total: selectedRide.baseFare + selectedRide.serviceCharge
-        }
-      }));
-      
+          ride: {
+            pickup:
+              sessionStorage.getItem('pickup') || selectedRide.route.pickup,
+            dropoff:
+              sessionStorage.getItem('dropoff') || selectedRide.route.dropoff,
+            duration: `${selectedRide.duration} mins`,
+            eta: new Date(
+              Date.now() + selectedRide.duration * 60000
+            ).toLocaleTimeString(),
+          },
+          fare: {
+            baseFare: selectedRide.baseFare,
+            serviceCharge: selectedRide.serviceCharge,
+            total: selectedRide.baseFare + selectedRide.serviceCharge,
+          },
+        })
+      );
+
       navigate('/local/confirmation');
     }
   };
@@ -78,7 +88,7 @@ export const RidesList = () => {
   const sortedRides = [...rides].sort((a, b) => {
     switch (sortBy) {
       case 'price':
-        return (a.baseFare + a.serviceCharge) - (b.baseFare + b.serviceCharge);
+        return a.baseFare + a.serviceCharge - (b.baseFare + b.serviceCharge);
       case 'rating':
         return b.rating - a.rating;
       case 'time':
@@ -89,9 +99,9 @@ export const RidesList = () => {
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex gap-2">
-        {sortingOptions.map(option => (
+    <div className='space-y-6'>
+      <div className='flex gap-2'>
+        {sortingOptions.map((option) => (
           <button
             key={option.id}
             onClick={() => setSortBy(option.id)}
@@ -107,13 +117,9 @@ export const RidesList = () => {
         ))}
       </div>
 
-      <div className="space-y-4">
-        {sortedRides.map(ride => (
-          <RideCard
-            key={ride.id}
-            ride={ride}
-            onSelect={handleRideSelect}
-          />
+      <div className='space-y-4'>
+        {sortedRides.map((ride) => (
+          <RideCard key={ride.id} ride={ride} onSelect={handleRideSelect} />
         ))}
       </div>
     </div>

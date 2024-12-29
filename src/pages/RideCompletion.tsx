@@ -1,4 +1,3 @@
-import React from 'react';
 import { RideCompletionHeader } from '../components/completion/RideCompletionHeader';
 import { RideSummary } from '../components/completion/RideSummary';
 import { RatingForm } from '../components/completion/RatingForm';

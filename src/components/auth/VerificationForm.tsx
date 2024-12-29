@@ -1,11 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import {useRouter} from 'next/router';
 import { useVerification } from './hooks/useVerification';
 import { VerificationInput } from './VerificationInput';
 import { AuthButton } from '../buttons/AuthButton';
 
 export const VerificationForm = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { verify, resendCode, isLoading, error } = useVerification();
   const [emailCode, setEmailCode] = React.useState('');
   const [phoneCode, setPhoneCode] = React.useState('');
@@ -15,7 +16,7 @@ export const VerificationForm = () => {
     try {
       const success = await verify({ emailCode, phoneCode });
       if (success) {
-        navigate('/complete-profile', { replace: true });
+        router.push('/complete-profile', { replace: true });
       }
     } catch (err) {
       console.error('Verification failed:', err);

@@ -8,21 +8,16 @@ interface StepContentProps extends StepProps {
   currentStep: TravelStep;
 }
 
-export const StepContent: React.FC<StepContentProps> = ({ 
+export const StepContent: React.FC<StepContentProps> = ({
   currentStep,
-  onNext,
-  onBack
+  onNext = () => {},
+  onBack = () => {},
 }) => {
   switch (currentStep) {
     case 'form':
       return <TravelForm onSubmit={onNext} />;
     case 'preferences':
-      return (
-        <TravelPreferencesForm
-          onSubmit={onNext}
-          onBack={onBack}
-        />
-      );
+      return <TravelPreferencesForm onSubmit={onNext} onBack={onBack} />;
     case 'rides':
       return <InterStateRidesList />;
     default:

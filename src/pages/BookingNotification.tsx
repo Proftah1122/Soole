@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { BookingSuccess } from '../components/booking/BookingSuccess';
 import { ShareRideModal } from '../components/sharing/ShareRideModal';
 import { useBookingNotification } from '../components/booking/hooks/useBookingNotification';
 
 export const BookingNotificationPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  // const navigate = useNavigate();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const { isVisible, cancelBooking } = useBookingNotification();
 
-  const bookingData = JSON.parse(sessionStorage.getItem('selectedRide') || '{}');
+  const bookingData = JSON.parse(
+    sessionStorage.getItem('selectedRide') || '{}'
+  );
   const paymentMethod = sessionStorage.getItem('paymentMethod');
 
   useEffect(() => {
     if (!paymentMethod || !bookingData.driver) {
-      navigate('/travel-selection');
+      router.push('/travel-selection');
     }
-  }, [navigate, paymentMethod, bookingData]);
+  }, [router, paymentMethod, bookingData]);
 
   const handleShare = () => {
     setIsShareModalOpen(true);
@@ -28,7 +32,7 @@ export const BookingNotificationPage: React.FC = () => {
       sessionStorage.removeItem('selectedRide');
       sessionStorage.removeItem('bookingConfirmed');
       sessionStorage.removeItem('paymentMethod');
-      navigate('/cancellation-success');
+      router.push('/cancellation-success');
     }
   };
 
@@ -37,15 +41,15 @@ export const BookingNotificationPage: React.FC = () => {
   const bookingDetails = {
     pickup: {
       location: bookingData.ride.pickup,
-      time: bookingData.ride.eta
+      time: bookingData.ride.eta,
     },
     driver: {
       name: bookingData.driver.name,
       photo: bookingData.driver.photo,
-      plateNumber: bookingData.driver.vehicle.plateNumber
+      plateNumber: bookingData.driver.vehicle.plateNumber,
     },
     vehicleInfo: `${bookingData.driver.vehicle.model} (${bookingData.driver.vehicle.color})`,
-    trackingLink: `${window.location.origin}/tracking/${Date.now()}`
+    trackingLink: `${window.location.origin}/tracking/${Date.now()}`,
   };
 
   return (
@@ -64,7 +68,7 @@ export const BookingNotificationPage: React.FC = () => {
           driverName: bookingDetails.driver.name,
           vehicleInfo: bookingDetails.vehicleInfo,
           pickupTime: bookingDetails.pickup.time,
-          trackingLink: bookingDetails.trackingLink
+          trackingLink: bookingDetails.trackingLink,
         }}
       />
     </>

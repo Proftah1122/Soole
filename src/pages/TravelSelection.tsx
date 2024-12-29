@@ -1,10 +1,8 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { MapPin, Navigation } from 'lucide-react';
 
 export const TravelSelectionPage = () => {
-  const navigate = useNavigate();
-
+  const router = useRouter();
   const buttonBaseStyles = `
     group 
     relative 
@@ -36,7 +34,7 @@ export const TravelSelectionPage = () => {
         
         <div className="grid md:grid-cols-2 gap-6">
           <button
-            onClick={() => navigate('/local')}
+            onClick={() => router.push('/local')}
             className={buttonBaseStyles}
           >
             <div className="flex flex-col items-center gap-4">
@@ -53,7 +51,7 @@ export const TravelSelectionPage = () => {
           </button>
 
           <button
-            onClick={() => navigate('/interstate')}
+            onClick={() => router.push('/interstate')}
             className={buttonBaseStyles}
           >
             <div className="flex flex-col items-center gap-4">

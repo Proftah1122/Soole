@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
+// import { useNavigate } from 'react-router-dom';
 
 // Mock data types
 interface DriverContact {
@@ -14,7 +15,8 @@ interface RideStatus {
 }
 
 export const useRideActions = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -60,14 +62,14 @@ export const useRideActions = () => {
       });
 
       // Navigate to cancellation success page
-      navigate('/cancellation-success');
+      router.push('/cancellation-success');
     } catch (err) {
       setError('Failed to cancel ride. Please try again.');
       console.error('Cancel ride error:', err);
     } finally {
       setIsLoading(false);
     }
-  }, [navigate]);
+  }, [router]);
 
   const clearError = useCallback(() => {
     setError(null);

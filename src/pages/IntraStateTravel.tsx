@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TravelForm } from '../components/travel/TravelForm';
 import { RidesList } from '../components/travel/RidesList';
 import { BackButton } from '../components/navigation/BackButton';

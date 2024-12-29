@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import {useRouter} from 'next/router';
 import { useForm } from './hooks/useForm';
 import { FormInput } from './FormInput';
 import { PasswordStrengthIndicator } from './PasswordStrengthIndicator';
@@ -8,7 +9,8 @@ import { AuthButton } from '../buttons/AuthButton';
 import { useSignUp } from './hooks/useSignUp';
 
 export const SignUpForm = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  // const navigate = useNavigate();
   const { signUp, isLoading, error } = useSignUp();
   
   const { values, errors, handleChange, isValid } = useForm({
@@ -57,7 +59,7 @@ export const SignUpForm = () => {
           phoneNumber: values.phoneNumber,
           password: values.password
         });
-        navigate('/verify-account');
+        router.push('/verify-account');
       } catch (err) {
         console.error('Sign up failed:', err);
       }
@@ -136,7 +138,7 @@ export const SignUpForm = () => {
           Already have an account?{' '}
           <button
             type="button"
-            onClick={() => navigate('/signin')}
+            onClick={() => router.push('/signin')}
             className="text-purple-500 hover:text-purple-400 transition-colors"
           >
             Log In

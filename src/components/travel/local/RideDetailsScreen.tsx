@@ -1,5 +1,5 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import {useRouter} from 'next/router';
 import { RideDetails } from './components/RideDetails';
 import { DriverCard } from './components/DriverCard';
 import { FareSummary } from './components/FareSummary';
@@ -7,7 +7,8 @@ import { AuthButton } from '../../buttons/AuthButton';
 import { BackButton } from '../../navigation/BackButton';
 
 export const RideDetailsScreen = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
   const selectedRide = JSON.parse(sessionStorage.getItem('selectedRide') || '{}');
 
   const handleConfirm = () => {
@@ -16,7 +17,7 @@ export const RideDetailsScreen = () => {
   };
 
   const handleBack = () => {
-    navigate(-1);
+    router.back();
   };
 
   if (!selectedRide.driver) {

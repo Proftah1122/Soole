@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const VideoPlayer = () => {
   return (
     <div className="relative w-full aspect-video max-w-lg mx-auto">

@@ -1,4 +1,3 @@
-import React from 'react';
 import { MapContainer, TileLayer, Polyline, Marker, Popup } from 'react-leaflet';
 import { LatLngBounds, LatLng } from 'leaflet';
 import { markerIcons } from '../../../utils/mapIcons';

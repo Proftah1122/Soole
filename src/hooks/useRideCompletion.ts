@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+// import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 interface RatingData {
   rating: number;
   comment: string;
@@ -8,7 +8,8 @@ interface RatingData {
 }
 
 export const useRideCompletion = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  // const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitFeedback = async (data: RatingData) => {
@@ -23,7 +24,7 @@ export const useRideCompletion = () => {
       sessionStorage.removeItem('bookingConfirmed');
       
       // Navigate to travel selection
-      navigate('/travel-selection');
+      router.push('/travel-selection');
     } catch (error) {
       console.error('Failed to submit feedback:', error);
     } finally {
@@ -37,7 +38,7 @@ export const useRideCompletion = () => {
     sessionStorage.removeItem('bookingConfirmed');
     
     // Navigate to travel selection
-    navigate('/travel-selection');
+    router.push('/travel-selection');
   };
 
   return {

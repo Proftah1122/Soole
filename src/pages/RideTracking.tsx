@@ -1,4 +1,3 @@
-import React from 'react';
 import { BackButton } from '../components/navigation/BackButton';
 import { LeafletMap } from '../components/tracking/LeafletMap';
 import { ETADisplay } from '../components/tracking/ETADisplay';

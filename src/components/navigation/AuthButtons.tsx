@@ -1,9 +1,10 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { AuthButton } from '../buttons/AuthButton';
 
 export const AuthButtons = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
 
   const handleSignUp = () => {
     navigate('/signup');

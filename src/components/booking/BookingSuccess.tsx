@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import {useRouter} from 'next/router';
 import { MapPin, Share2, Clock, X } from 'lucide-react';
 import { AuthButton } from '../buttons/AuthButton';
 
@@ -23,7 +24,8 @@ export const BookingSuccess: React.FC<BookingSuccessProps> = ({
   onShare,
   onCancel
 }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
 
   const handleTrack = () => {
     navigate('/tracking'); // Ensure this route exists in App.tsx

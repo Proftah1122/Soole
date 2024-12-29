@@ -1,4 +1,3 @@
-import React from 'react';
 import { CreditCard, Wallet, Clock } from 'lucide-react';
 import { AuthButton } from '../buttons/AuthButton';
 

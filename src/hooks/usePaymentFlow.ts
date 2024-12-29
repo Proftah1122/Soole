@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import {useRouter} from 'next/navigation';
 
 export type PaymentMethod = 'wallet' | 'card' | 'cash';
 
@@ -10,7 +11,8 @@ interface PaymentState {
 }
 
 export const usePaymentFlow = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const router = useRouter();
   const [state, setState] = useState<PaymentState>({
     method: null,
     isProcessing: false,
@@ -34,7 +36,7 @@ export const usePaymentFlow = () => {
       sessionStorage.setItem('paymentMethod', state.method);
       
       // Navigate to next step
-      navigate('/booking-notification');
+      router.push('/booking-notification');
     } catch (error) {
       setState(prev => ({
         ...prev,

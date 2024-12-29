@@ -1,4 +1,3 @@
-import React from 'react';
 import { Share2, Copy, MessageSquare, Send } from 'lucide-react';
 import { Modal } from '../modals/Modal';
 import { ShareOption } from './ShareOption';
